@@ -9,7 +9,7 @@ export const inngest = new Inngest({ id: "ace-next" });
 
 export const syncUserData = inngest.createFunction(
   {
-    id: "sync-user-with-clerk",
+    id: "sync-user-with-clerk-v2",
   },
   { event: "clerk/user.created" }, //  Event to trigger the function
   async ({ event }) => {
@@ -28,7 +28,7 @@ export const syncUserData = inngest.createFunction(
 // Inngest function to update user data in the database
 export const syncUpdateUserData = inngest.createFunction(
     {
-        id: "update-user-from-clerk",
+        id: "update-user-from-clerk-v2",
     },
     { event: "clerk/user.updated" }, // Event to trigger the function
     async({event}) => {
@@ -47,7 +47,7 @@ export const syncUpdateUserData = inngest.createFunction(
 // Inngest function to delete user data from the database
 export const syncDeleteUserData = inngest.createFunction(
     {
-        id: "delete-user-with-clerk",
+        id: "delete-user-with-clerk-v2",
     },
     { event: "clerk/user.deleted" }, // Event to trigger the function
     async({event}) => {

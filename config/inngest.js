@@ -9,7 +9,7 @@ export const inngest = new Inngest({ id: "ace-next" });
 
 export const syncUserData = inngest.createFunction(
   {
-    id: "sync-user-from-clerk",
+    id: "sync-user-with-clerk",
   },
   { event: "clerk/user.created" }, //  Event to trigger the function
   async ({ event }) => {

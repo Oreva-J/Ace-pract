@@ -15,4 +15,3 @@ export const { GET, POST, PUT } = serve({
     syncDeleteUserData
   ],
 });
-// This is a special function that will be called when the server starts

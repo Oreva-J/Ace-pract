@@ -12,36 +12,45 @@ export async function POST(request) {
         const { address, items } = await request.json();
 
         if (!address || items.length === 0) {
-            return NextResponse.json({ success: false, message:"invalid data"});
-            
+            return NextResponse.json({ success: false, message: "invalid data" });
+
         }
 
         //  calculate amount using items
-        const amount = await items.reduce(async(acc, item) =>{
-             const product = await Product.findById(item.product);
-             return await acc + product.offeredPrice * item.quantity;
-            
-            }, 0);
+        // const amount = await items.reduce(async(acc, item) =>{
+        //      const product = await Product.findById(item.product);
+        //      return await acc + product.offeredPrice * item.quantity;
 
-            await inngest.send({
-                name: "order/created",
-                data: {
-                    userId,
-                    address,
-                    items,
-                    amount: amount + Math.floor(amount * 0.02),  // Adding a random number to simulate a unique amount
-                    date: Date.now(),
-                }
-            });
 
-            //  clear user cart
-            const user = await User.findById(userId);
-            user.cartItems = {};
-            await user.save();
+        //     }, 0);
+        
+        let amount = 0;
+        for (const item of items) {
+            const product = await Product.findById(item.product);
+            if (!product) NextResponse.json({ success: false, message: "Product not found" });
+            amount += product.offeredPrice * item.quantity;
+        }
+
+        await inngest.send({
+            name: "order/created",
+            data: {
+                userId,
+                address,
+                items,
+                amount: amount + Math.floor(amount * 0.02), // this must be a real number
+                date: Date.now(),
+            }
+        });
+
+
+        //  clear user cart
+        const user = await User.findById(userId);
+        user.cartItems = {};
+        await user.save();
 
         return NextResponse.json({ success: true, message: "Order placed" });
     } catch (error) {
-    console.error("Error creating order @inngest/order/create/route/js:", error);
+        console.error("Error creating order @inngest/order/create/route/js:", error);
         return NextResponse.json({ success: false, message: error.message || "Failed to create order" });
     }
 }

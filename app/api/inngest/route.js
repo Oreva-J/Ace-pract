@@ -1,4 +1,4 @@
-import { inngest, syncDeleteUserData, syncUpdateUserData, syncUserData } from "@/config/inngest";
+import { createUserOrder, inngest, syncDeleteUserData, syncUpdateUserData, syncUserData } from "@/config/inngest";
 import { serve } from "inngest/next";
 // import { inngest } from "../../../inngest/client";
 
@@ -12,6 +12,8 @@ export const { GET, POST, PUT } = serve({
     // syncUpdateUserData,
     syncUpdateUserData,
     // syncDeleteUserData,
-    syncDeleteUserData
+    syncDeleteUserData,
+    // createUserOrder,
+    createUserOrder,
   ],
 });

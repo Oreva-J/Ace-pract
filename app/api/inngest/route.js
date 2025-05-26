@@ -14,6 +14,6 @@ export const { GET, POST, PUT } = serve({
     // syncDeleteUserData,
     syncDeleteUserData,
     // createUserOrder,
-    createUserOrder,
+    createUserOrder
   ],
 });

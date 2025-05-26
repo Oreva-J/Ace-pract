@@ -5,17 +5,17 @@ const orderSchema = new mongoose.Schema({
     userId: {
         type: String,
         required: true,
-        ref: 'User',
+        ref: 'user',
     },
     items: [{
-        product:{ type: String, required: true,ref: 'Product' },
-        quantity: { type: Number, required:true },
+        product:{ type: String, required: true, ref: 'product' },
+        quantity: { type: Number, required:true }
     }],
     
     address: {
         type: String,
         required: true,
-        ref: 'Address',
+        ref: 'address',
     },
     amount: {
         type: Number,
@@ -30,6 +30,6 @@ const orderSchema = new mongoose.Schema({
         required: true,
     }
 });
-const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
+const Order = mongoose.models.order || mongoose.model("order", orderSchema);
 
 export default Order;
